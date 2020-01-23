@@ -19,6 +19,7 @@
   "homepage": "https://github.com/i-ces/BinaryBeasts#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "font-awesome": "^4.7.0",
     "nodemon": "^2.0.2"
   }
 }

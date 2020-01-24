@@ -17,13 +17,15 @@ var insertHtml = function (selector, html) {
 
 
 var homeUrl = "snippets/home.html";
-var registerurl = "snippets/registration.html";
+var registerUrl = "snippets/registration.html";
+var statusUrl = "snippets/statusCheck.html";
+
 
 //window.location = homeUrl;
  //$("#main-content").load(homeUrl);
 $(function(){
     
-    showLoading("#main-content"); //show loading gif
+    //showLoading("#main-content"); //show loading gif
 
 //     $ajaxUtils.sendGetRequest(
 //         homeUrl,
@@ -43,7 +45,7 @@ $(function(){
 
 
 dc.getRegister = function(){
-	    showLoading("#main-content");
+	    //showLoading("#main-content");
 
 	    // $ajaxUtils.sendGetRequest(
 	    // 		registerurl , 
@@ -52,11 +54,19 @@ dc.getRegister = function(){
 	    // 		},
 	    // 		false  //no json response
 	    // 	);
-	    	$("#main-content").load(registerurl);
+	    	$("#main-content").load(registerUrl);
 
 
 
 };
+
+dc.getStatus = function(){
+    //showLoading("#main-content");
+
+	$("#main-content").load(statusUrl);
+    
+};
+
 
 dc.validateForm = function(){
 	//showLoading("#main-content");
@@ -75,6 +85,23 @@ dc.validateForm = function(){
                 alert("wrong input");
               	}
 
+
+
+};
+
+dc.checkStatus = function(){
+	var citizenNoo = $('#Citizenship').val();
+
+   
+
+    if(citizenNoo != '' && citizenNoo.length>=12 ){
+        var data = {
+            citizenNo: citizenNoo
+            //password : pass2
+        };
+
+        alert(citizenNoo);
+       }
 };
 
 

@@ -79,61 +79,110 @@ dc.getDashboard = function(){
 dc.getChecker = function(){
 	showLoading("#main-content");
 
+$("#main-content").load(checkerUrl);
+	
 
-	$("#main-content").load(checkerUrl);
 
+// 	 $(function() {
+//                                               const z = prompt("Enter date of birth in the order year/month/day. For eg. 2055/11/15");
+//                         
+//                                               if(z){
 
-	 $(function() {
-                                              const z = prompt("Enter date of birth in the order year/month/day. For eg. 2055/11/15");
-                                              const m = z.split('/').join('');
-                                              const n = m.substring(0,4);
-                                              const o = m.substring(4,6);
-                                              const p = m.substring(6,8);
-                                              const a = parseInt(n);
-                                              const datetoday = 20751010;
-                                              const age = (datetoday - parseInt(m))/10000;
-                                              alert(".............");
-                                              const x = document.getElementById("gg");
-                                              const y = document.getElementById("ff");
-                                              if(a < 2075 && a > 1960 && parseInt(o)<13 && parseInt(p)<32) { 
+//                                               const m = z.split('/').join('');
+//                                               const n = m.substring(0,4);
+//                                               const o = m.substring(4,6);
+//                                               const p = m.substring(6,8);
+//                                               const a = parseInt(n);
+//                                               const datetoday = 20751010;
+//                                               const age = (datetoday - parseInt(m))/10000;
+//                                               //alert(".............");
+//                                               const x = document.getElementById("gg");
+//                                               const y = document.getElementById("ff");
+//                                               if(a < 2075 && a > 1960 && parseInt(o)<13 && parseInt(p)<32) 
+//                                               { 
                                                 
-                                                if(age <18){
-                                                      //console.log("Entered!!!");
-                                                      y.style.color= "Red"; 
-                                                      x.style.backgroundColor= "#FF5D52"; 
+//                                                 if(age <18){
+//                                                       //console.log("Entered!!!");
+//                                                       y.style.color= "Red"; 
+//                                                       x.style.backgroundColor= "#FF5D52"; 
 
                                                       
-                                                      y.innerHTML= "Age below 18"; 
+//                                                       y.innerHTML= "Age below 18"; 
                                                 
-                                                    }
+//                                                     }
                                                       
-                                                  //y.innerHTML= "Finger print not found!!"; 
+//                                                   //y.innerHTML= "Finger print not found!!"; 
                                                     
-                                                    else{
-                                                   console.log(".............");
-                                                  y.style.color= "green"; 
-                                                  y.innerHTML= "All Ok!"; 
-                                                  x.style.backgroundColor= "lightgreen"; 
+//                                                     else{
+//                                                    //console.log(".............");
+                                                  
+//                                                   y.innerHTML= "All Ok!"; 
+//                                                   y.style.color= "green"; 
+//                                                   x.style.backgroundColor= "lightgreen"; 
 
-                                                      }
-                                                }
-                                            else
-                                            {
-                                                alert("Wrong input!!! ");
-                                            }   
+//                                                       }
+//                                                 }
+//                                             else
+//                                             {
+//                                                 alert("Wrong input!!! ");
+//                                             }   
                                                 
                                                 
-    //{console.log("kick back!!!");}
-});
+//     //{console.log("kick back!!!");}
+// }
 
+// });
 };
 
 dc.getResult = function(){
 		showLoading("#main-content");
+    //console.log('inside counter');
 			$("#main-content").load(resultUrl);
+
+    //     $(".counter-count").each(function () {
+    //       console.log('inside counter');
+    //     $(this).prop('Counter',0).animate({
+    //         Counter: $(this).text()
+    //     }, {
+    //         duration: 5000,
+    //         easing: 'swing',
+    //         step: function (now) {
+    //             $(this).text(Math.ceil(now));
+    //         }
+    //     });
+    // });
+
+    //dc.countResult();
+
+  $.get(
+  "http://localhost:3001/getResult",
+  function(data,status){
+      //console.log("Data: "+ data.note);
+      //console.log(data);
+      $("#P1").text(data.A);
+      $("#P2").text(data.B);
+      $("#P3").text(data.C);
+  }
+  );
+
 
 };
 
+
+dc.countResult = function(){
+ //alert("hello world");
+    // $('.counter-count').each(function () {
+    //     $(this).prop('Counter',0).animate({
+    //         Counter: $(this).text()
+    //     }, {
+    //         duration: 10000,
+    //         easing: 'swing',
+    //         step: function (now) {
+    //             $(this).text(Math.ceil(now));
+    //         }
+    //     });
+    // });
+};
 
 dc.getHelp = function(){
 			showLoading("#main-content");
@@ -199,6 +248,9 @@ else{
   //console.log(`${value1} + ${value2}`);
 
 };
+
+
+
 
 
 dc.validateForm = function(){

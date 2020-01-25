@@ -259,13 +259,38 @@ dc.validateForm = function(){
 			//alert("entered");
 
 	 		  var x = document.getElementById("Citizenship").value;
-              var y = document.getElementById("location").value;
+              //var y = document.getElementById("location").value;
               var z = document.getElementById("chheckbox").checked;              
               var a = x.length;
-              var b = y.length;
-              if (a == 14 && b == 3 && z ){
-                alert("you are registered");
-              	}
+              //var b = y.length;
+            if (a >= 12 && z ){
+                // alert("you are registered");
+
+                 
+                var data = {
+                    citizenNo: x
+                    //password : pass2
+                };
+
+                //console.log(data);
+
+                $.ajax({
+                    type : 'POST',
+                    url : 'api/user',
+                    data : JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success : function(data1){
+                        //console.log(data1.Citizen + data1.message);
+                        alert(data1.citizenNo + data1.message );
+                    },
+                    error: function(err){
+                        alert("Error Occured");
+                        //console.log(err);
+                    }
+                });
+            }
+            
               else{
                 alert("wrong input");
               	}
@@ -284,9 +309,27 @@ dc.checkStatus = function(){
             citizenNo: citizenNoo
             //password : pass2
         };
+        // console.log( JSON.stringify(data));
 
-        alert(citizenNoo);
-       }
+            $.ajax({
+                type: 'POST',
+                url: 'api/check',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success : function(data1){
+
+                    alert(data1.citizenNo + data1.message );
+                },
+                error: function(err){
+                    alert("Error Occured !!!");
+                    //console.log(err);
+                }
+            });
+        }
+        else{
+            alert("Please Check your CitizenShip Number!!!");
+        }
 };
 
 

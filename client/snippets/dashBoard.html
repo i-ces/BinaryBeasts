@@ -25,7 +25,7 @@
                                 
                     </div>
                 <div class="col-4 col-sm-4">
-                    <img style="float: right;" src="../img/ajax-loader_2.gif" height="100" width="100">
+                    <img style="float: right;" src=" " height="100" width="100">
                     </div>
                 </div> 
                 <hr>   
@@ -39,19 +39,19 @@
                                   <h5 class="card-title">Form-1: For Party</h5>
                                   <p class="card-text">
                                       <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="Party" id="exampleRadios1" value="option1" required>
+                                        <input class="form-check-input" type="radio" name="Party" id="p-radio1" value="A" required>
                                         <label class="form-check-label" for="exampleRadios1">
                                           1st party
                                         </label>
                                       </div>
                                       <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="Party" id="exampleRadios2" value="option2">
+                                        <input class="form-check-input" type="radio" name="Party" id="p-radio2" value="B">
                                         <label class="form-check-label" for="exampleRadios2">
                                           2nd party
                                         </label>
                                       </div>
                                       <div class="form-check disabled">
-                                        <input class="form-check-input" type="radio" name="Party" id="exampleRadios3" value="option3">
+                                        <input class="form-check-input" type="radio" name="Party" id="p-radio3" value="C">
                                         <label class="form-check-label" for="exampleRadios3">
                                           3rd party
                                         </label>
@@ -67,19 +67,19 @@
                                   <h5 class="card-title">Form-2: For candidate</h5>
                                   <p class="card-text">
                                         <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="candidate" id="exampleRadios1" value="option1" required>
+                                                <input class="form-check-input" type="radio" name="candidate" id="c-radio1" value="A" required>
                                                 <label class="form-check-label" for="exampleRadios1">
                                                   1st candidate
                                                 </label>
                                               </div>
                                               <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="candidate" id="exampleRadios2" value="option2">
+                                                <input class="form-check-input" type="radio" name="candidate" id="c-radio2" value="B">
                                                 <label class="form-check-label" for="exampleRadios2">
                                                   2nd candidate
                                                 </label>
                                               </div>
                                               <div class="form-check disabled">
-                                                <input class="form-check-input" type="radio" name="candidate" id="exampleRadios3" value="option3"  >
+                                                <input class="form-check-input" type="radio" name="candidate" id="c-radio3" value="C"  >
                                                 <label class="form-check-label" for="exampleRadios3">
                                                   3rd candidate
                                                 </label>
@@ -91,7 +91,7 @@
                             </div>
                             
                          <div class=" col-sm-12 text-center" >
-                          <button type="submit" class="btn btn-success btn-lg center-block mr-1">Submit</button>
+                          <button onclick="$dc.getRadios()" type="button" class="btn btn-success btn-lg center-block mr-1">Submit</button>
                         </div> 
                     </div>      
                 </form>

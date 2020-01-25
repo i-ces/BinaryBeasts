@@ -142,6 +142,65 @@ dc.getHelp = function(){
 };
 
 
+dc.getRadios = function(){
+  //alert('pressed!!!');
+  var radios1 = document.getElementsByName('Party');
+    var radios2 = document.getElementsByName('candidate');
+
+    var a1 = []; var a2 = [];
+
+for(let i =0 ; i < radios1.length ; i++ ) {
+
+  a1[i] = radios1[i].checked;
+  a2[i] = radios2[i].checked;
+}
+
+if((a1[0] || a1[1] || a1[2] )&& (a2[0] || a2[1] || a2[2] )){
+  var value1; var value2;
+  for (var i = 0; i < radios1.length; i++) {
+      if (radios1[i].type === 'radio' && radios1[i].checked)  value1 = radios1[i].value; 
+      if (radios2[i].type === 'radio' && radios2[i].checked)  value2 = radios2[i].value; 
+    
+
+
+ }
+
+ //alert(value1);
+
+$.post(
+      "http://localhost:3001/vote/broadcast",
+      {
+        "For": value1
+      },
+      function(data,status){
+           console.log("Data: "+ data.note);
+          $("#main-content").html(`<h1 style="color: green;">${data.note}</h1>`);
+      }
+  );
+
+$.get(
+  "http://localhost:3001/mine",
+  function(data,status){
+      //console.log("Data: "+ data.note);
+
+  }
+  );
+
+
+}
+else{
+  alert('Radio Empty!!!');
+
+}
+// else{
+//   alert('Radio Empty!!!');
+// }
+
+  //console.log(`${value1} + ${value2}`);
+
+};
+
+
 dc.validateForm = function(){
 	//showLoading("#main-content");
 	// $("#main-content").load(registerurl);

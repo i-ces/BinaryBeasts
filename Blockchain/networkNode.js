@@ -1,10 +1,22 @@
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
 const bodyParser = require('body-parser');
 const Blockchain = require('./blockchain');
 const uuid = require('uuid/v1');
 const port = process.argv[2];
 const rp = require('request-promise');
+
+app.use(cors());
+
+// app.use(function(req, res, next) {
+// 	alert('cors allowed!!');
+//   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   //next();
+// });
+
 
 const nodeAddress = uuid().split('-').join(''); 
 
@@ -27,6 +39,14 @@ app.post('/vote', function(req, res){
 	res.json({note: `This vote will be added in block ${blockIndex}.`});
 });
 
+
+
+// var corsOptions = {
+//   origin: 'http://localhost:3000',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+
+
 app.post('/vote/broadcast', function(req,res){
 	const newVote = voting.createNewVote(req.body.For);
 
@@ -44,7 +64,7 @@ app.post('/vote/broadcast', function(req,res){
 	});
 	Promise.all(requestPromises)
 		.then(data=> {
-			res.json({ note: 'Vote given and broadcast successfully.'})
+			res.json({ note: 'Vote given and broadcasted successfully.'})
 		}).catch(function(){
 			console.log("Error Occured!!!");
 		});
@@ -163,7 +183,50 @@ app.post('/register-nodes-bulk', function(req,res){
 	res.json({ note: 'Bulk registration successful.'});
 });
 
+app.get('/consensus', function(req,res){
+	//alert('hey');
+	const requestPromises = [];
+	voting.networkNodes.forEach(networkNodeUrl =>{
+		const requestOptions = {
+			uri: networkNodeUrl + '/blockchain',
+			method: 'GET',
+			json: true
+		};
 
+		requestPromises.push(rp(requestOptions));
+	});
+
+	Promise.all(requestPromises)
+	.then(blockchains=>{
+		const currentChainLength = voting.chain.length;
+		let maxChainLength = currentChainLength;
+		let newLongestChain = null;
+		let newPendingVote = null;
+
+		blockchains.forEach(blockchain => {
+			if(blockchain.chain.length > maxChainLength){
+				maxChainLength = blockchain.chain.length;
+				newLongestChain = blockchain.chain;
+				newPendingVote = blockchain.pendingVote;
+			};
+		});
+
+		if(!newLongestChain || (newLongestChain && !voting.chainIsValid(newLongestChain))){
+			res.json({
+				note: 'Current chain has not been replaced.',
+				chain: voting.chain
+			});
+		}
+		else if(newLongestChain && voting.chainIsValid(newLongestChain)){
+			voting.chain = newLongestChain;
+			voting.pendingVote = newPendingVote;
+			res.json({
+				note: 'This chain has been replaced.',
+				chain: voting.chain
+			});
+		}
+	});//.then end
+});
 
 app.get('/getmyaddress', function(req,res){
 	res.send(`This Node Address is --------> ${nodeAddress}.`);
